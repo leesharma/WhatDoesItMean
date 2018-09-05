@@ -17,7 +17,7 @@ mvn package
 Next, execute the newly created jar file:
 
 ```bash
-java -jar target/WhatDoesItMean-1.0.jar
+java -jar target/WhatDoesItMean-1.0.0.jar
 ```
 
 Voilà, the app is running!
