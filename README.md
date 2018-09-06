@@ -14,10 +14,22 @@ First, build the app:
 mvn package
 ```
 
-Next, execute the newly created jar file:
+Next, launch the app with Maven:
 
 ```bash
-java -jar target/WhatDoesItMean-1.0.0.jar
+mvn exec:java
 ```
 
 Voilà, the app is running!
+
+## Validation and Testing
+
+Validation and tests are part of the build process, but you can also run
+them independently with the following commands:
+
+```bash
+mvn validate  # runs style check
+mvn test      # runs automated tests
+```
+
+Make sure the tests pass before pushing code to GitHub!
