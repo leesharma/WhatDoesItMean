@@ -8,12 +8,22 @@
  * Project: What Does It Mean?: Automatic Caption Generator
  */
 
-import javax.swing.JFrame;
+
+import javafx.application.Application;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import java.io.File;
 
 /**
  * Entry point to the What Does It Mean? captioning application.
  */
-public class Main {
+public class Main extends Application {
 
   /**
    * Launches the application.
@@ -21,12 +31,37 @@ public class Main {
    * @param args command-line arguments
    */
   public static void main(String[] args) {
-    JFrame frame = new JFrame("Hello World!");
-
-    frame.setSize(600, 400);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setVisible(true);
-
-    System.out.println("Hello world! We've just launched a blank window.");
+    launch(args);
+    System.out.println("Program Finished");
+  }
+  
+  public void start(Stage primaryStage) {
+    BorderPane bp = new BorderPane();
+    Label label = new Label("File/Path/");
+    Button btn = new Button("Browse");
+    
+    btn.setOnAction(event -> {
+      FileChooser fc = new FileChooser();
+      fc.setTitle("Open File");
+      File file = fc.showOpenDialog(primaryStage);
+      if (file != null) {
+        //set the label to the selected file's path
+        label.setText(file.getPath());
+        
+        //Do other things..
+      }
+    });
+    
+    //Layout
+    HBox hb = new HBox(btn, label);
+    hb.setSpacing(20);
+    hb.setAlignment(Pos.CENTER);
+    bp.setCenter(hb);
+  
+    //Scene & Stage
+    Scene scene = new Scene(bp,600,500);
+    primaryStage.setScene(scene);
+    primaryStage.setTitle("WhatDoesItMean?");
+    primaryStage.show();
   }
 }
