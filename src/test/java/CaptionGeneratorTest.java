@@ -62,4 +62,17 @@ class CaptionGeneratorTest {
         cg.generateCaption(dupImg)
     );
   }
+
+  @Test
+  void generateCaption__multipleCaptions__differentImage() throws IOException {
+    CaptionGenerator cg = new CaptionGenerator();
+    BufferedImage img1 = fixtures.getNextImage();
+    BufferedImage img2 = fixtures.getNextImage();
+
+    // different image = different caption
+    assertNotEquals(
+        cg.generateCaption(img1),
+        cg.generateCaption(img2)
+    );
+  }
 }
