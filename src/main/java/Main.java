@@ -19,12 +19,15 @@ import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 /**
  * Entry point to the What Does It Mean? captioning application.
  */
-public class Main extends Application {
 
+public class Main extends Application {
   /**
    * Launches the application.
    *
@@ -35,33 +38,56 @@ public class Main extends Application {
     System.out.println("Program Finished");
   }
   
+  @Override
   public void start(Stage primaryStage) {
+    primaryStage.setTitle("What Does It Mean?");
     BorderPane bp = new BorderPane();
-    Label label = new Label("File/Path/");
-    Button btn = new Button("Browse");
+    //Label label = new Label("Name:");
     
-    btn.setOnAction(event -> {
+    //Layout
+    Button btn1 = new Button("Browse");
+    Button btn2 = new Button("Caption");
+    HBox hb = new HBox(btn1,btn2);
+    hb.setSpacing(20);
+    hb.setAlignment(Pos.TOP_LEFT);
+    hb.setStyle("-fx-background-color: #336699;");
+    bp.setTop(hb);
+ 
+    
+  
+    //Scene & Stage
+    Scene scene = new Scene(bp,414,736, Color.DODGERBLUE);
+    primaryStage.setScene(scene);
+    primaryStage.show();    
+    
+    //Browse Button User Event
+    btn1.setOnAction(event -> {
       FileChooser fc = new FileChooser();
+      
+      //File Format Filters
+      FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+      FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+      FileChooser.ExtensionFilter extFilterBMP = new FileChooser.ExtensionFilter("BMP files (*.bmp)", "*.BMP");
+      FileChooser.ExtensionFilter extFilterALL = new FileChooser.ExtensionFilter("All Image Files (JPG,PNG,BMP)","*.JPG","*.BMP", "*.PNG");
+      fc.getExtensionFilters().addAll(extFilterJPG,extFilterPNG,extFilterBMP, extFilterALL);
+      
       fc.setTitle("Open File");
       File file = fc.showOpenDialog(primaryStage);
+      
+     
+      
+      
       if (file != null) {
         //set the label to the selected file's path
-        label.setText(file.getPath());
+        
+       //label.setText(file.getName());
         
         //Do other things..
+        //Image image1 = new Image(file.toURI().toString());
       }
     });
     
-    //Layout
-    HBox hb = new HBox(btn, label);
-    hb.setSpacing(20);
-    hb.setAlignment(Pos.CENTER);
-    bp.setCenter(hb);
+    } 
   
-    //Scene & Stage
-    Scene scene = new Scene(bp,600,500);
-    primaryStage.setScene(scene);
-    primaryStage.setTitle("WhatDoesItMean?");
-    primaryStage.show();
   }
-}
+
