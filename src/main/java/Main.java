@@ -74,8 +74,6 @@ public class Main extends Application {
       fc.setTitle("Open File");
       File file = fc.showOpenDialog(primaryStage);
       
-     
-      
       
       if (file != null) {
         //set the label to the selected file's path
