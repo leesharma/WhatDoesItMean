@@ -8,107 +8,94 @@
  * Project: What Does It Mean?: Automatic Caption Generator
  */
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javax.imageio.ImageIO;
-import javafx.embed.swing.SwingFXUtils;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Entry point to the What Does It Mean? captioning application.
  */
 
 public class Main extends Application {
-    /**
-     * Launches the application.
-     *
-     * @param args command-line arguments
-     */
-    ImageView myImageView;
+  
+  /**
+   * Launches the application.
+   *
+   * @param args command-line arguments
+   */
+  public static void main(String[] args) {
+    launch(args);
+    System.out.println("Program Finished");
+  }
+  
+  /**
+   * Entry point of the JavaFX application.
+   *
+   * @param primaryStage
+   */
+  @Override
+  public void start(Stage primaryStage) {
+    primaryStage.setTitle("What Does It Mean?");
+    BorderPane bp = new BorderPane();
+    HBox hb = new HBox();
+    HBox hb2 = new HBox();
+    ImageView myImageView = new ImageView();
+    Button btn1 = new Button("Browse");
+    Button btn2 = new Button("Caption");
+    
+    //Controls
+    hb.setSpacing(20);
+    hb.setAlignment(Pos.TOP_LEFT);
+    hb.setStyle("-fx-background-color: #336699;");
+    hb.getChildren().addAll(btn1, btn2);
+    
+    //Image
+    hb2.setAlignment(Pos.CENTER);
+    hb2.getChildren().addAll(myImageView);
+    
+    //layout management
+    bp.setTop(hb);
+    bp.setCenter(hb2);
+  
+    //Scene & Stage
+    Scene scene = new Scene(bp,500, 500);
+    primaryStage.setScene(scene);
+    primaryStage.show();
 
-    public static void main(String[] args) {
-        launch(args);
-        System.out.println("Program Finished");
-    }
+    //Browse Button User Event
+    btn1.setOnAction(event -> {
+      FileChooser fc = new FileChooser();
+      
+      //File Format Filters
+//      FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+//      FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+//      FileChooser.ExtensionFilter extFilterBMP = new FileChooser.ExtensionFilter("BMP files (*.bmp)", "*.BMP");
+//      FileChooser.ExtensionFilter extFilterALL = new FileChooser.ExtensionFilter("All Image Files (JPG,PNG,BMP)", "*.JPG", "*.BMP", "*.PNG");
+//      fc.getExtensionFilters().addAll(extFilterJPG, extFilterBMP, extFilterALL);
 
-    @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("What Does It Mean?");
-        BorderPane bp = new BorderPane();
-        //Label label = new Label("Name:");
-
-
-        //Layout
-        Button btn1 = new Button("Browse");
-        Button btn2 = new Button("Caption");
-        HBox hb = new HBox();
-        hb.setSpacing(20);
-        hb.setAlignment(Pos.TOP_LEFT);
-        hb.setStyle("-fx-background-color: #336699;");
-        bp.setTop(hb);
-
-        myImageView = new ImageView();
-
-        //Scene & Stage
-        hb.getChildren().addAll(btn1, btn2, myImageView);
-
-        Scene scene = new Scene(bp,500, 500, Color.DODGERBLUE);
-
-
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-        //Browse Button User Event
-        btn1.setOnAction(event -> {
-            FileChooser fc = new FileChooser();
-
-            //File Format Filters
-            FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-            FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-            FileChooser.ExtensionFilter extFilterBMP = new FileChooser.ExtensionFilter("BMP files (*.bmp)", "*.BMP");
-            FileChooser.ExtensionFilter extFilterALL = new FileChooser.ExtensionFilter("All Image Files (JPG,PNG,BMP)", "*.JPG", "*.BMP", "*.PNG");
-            fc.getExtensionFilters().addAll(extFilterJPG, extFilterPNG, extFilterBMP, extFilterALL);
-
-            fc.setTitle("Open File");
-            File file = fc.showOpenDialog(primaryStage);
-
-            try {
-                BufferedImage bufferedImage = ImageIO.read(file);
-                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-                myImageView.setImage(image);
-                myImageView.setFitHeight(400);
-                myImageView.setPreserveRatio(true);
-                myImageView.setSmooth(true);
-                myImageView.setCache(true);
-            } catch (IOException ex) {
-            }
-
-
-            if (file != null) {
-                //set the label to the selected file's path
-
-                //label.setText(file.getName());
-
-                //Do other things..
-                //Image image1 = new Image(file.toURI().toString());
-            }
-
-        });
-
-
-
-    }
+      fc.setTitle("Open File");
+      File file = fc.showOpenDialog(primaryStage);
+      
+      try {
+        Image image = new Image(String.valueOf(file.toURI().toURL()));
+        myImageView.setImage(image);
+        myImageView.setPreserveRatio(true);
+        myImageView.setFitHeight(200);
+        myImageView.setFitWidth(200);
+        myImageView.setSmooth(true);
+      } catch (IOException e) {
+        System.out.println(e.getMessage());
+      }
+      
+    });
+  }
 }
