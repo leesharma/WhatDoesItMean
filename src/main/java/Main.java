@@ -8,27 +8,29 @@
  * Project: What Does It Mean?: Automatic Caption Generator
  */
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import javafx.application.Application;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import java.io.File;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Entry point to the What Does It Mean? captioning application.
  */
 
 public class Main extends Application {
-  
+
   /**
    * Launches the application.
    *
@@ -38,46 +40,46 @@ public class Main extends Application {
     launch(args);
     System.out.println("Program Finished");
   }
-  
+
   /**
    * Entry point of the JavaFX application.
    *
-   * @param primaryStage
+   * @param primaryStage JavaFX stage
    */
   @Override
   public void start(Stage primaryStage) {
     primaryStage.setTitle("What Does It Mean?");
-    BorderPane bp = new BorderPane();
-    HBox hb1 = new HBox();
-    HBox hb2 = new HBox();
-    HBox hb3 = new HBox();
-    Label lb1 = new Label("Picture Caption!");
-    ImageView myImageView = new ImageView();
-    Button btn1 = new Button("Browse");
-    Button btn2 = new Button("Caption");
-    btn2.setDisable(true);
 
     //Controls
+    HBox hb1 = new HBox();
     hb1.setSpacing(20);
     hb1.setAlignment(Pos.TOP_LEFT);
     hb1.setStyle("-fx-background-color: #336699;");
+    Button btn1 = new Button("Browse");
+    Button btn2 = new Button("Caption");
+    btn2.setDisable(true);
     hb1.getChildren().addAll(btn1, btn2);
-    
+
     //Image
+    HBox hb2 = new HBox();
     hb2.setAlignment(Pos.CENTER);
+    ImageView myImageView = new ImageView();
     hb2.getChildren().addAll(myImageView);
-    
+
     //Caption
+    HBox hb3 = new HBox();
     hb3.setAlignment(Pos.BOTTOM_CENTER);
+    Label lb1 = new Label("Picture Caption!");
     hb3.getChildren().addAll(lb1);
-    
+
     //layout management
+    BorderPane bp = new BorderPane();
     bp.setTop(hb1);
     bp.setCenter(hb2);
     bp.setBottom(hb3);
-  
+
     //Scene & Stage
-    Scene scene = new Scene(bp,500, 500);
+    Scene scene = new Scene(bp, 500, 500);
     primaryStage.setScene(scene);
     primaryStage.show();
 
@@ -90,14 +92,14 @@ public class Main extends Application {
       //Run captioning method and set label text
       lb1.setText(cg.generateCaption(img));
     });
-    
+
     //Browse Button User Event
     btn1.setOnAction(event -> {
       FileChooser fc = new FileChooser();
 
       fc.setTitle("Open File");
       File file = fc.showOpenDialog(primaryStage);
-      
+
       try {
         Image image = new Image(String.valueOf(file.toURI().toURL()));
         myImageView.setImage(image);
@@ -107,15 +109,15 @@ public class Main extends Application {
         myImageView.setSmooth(true);
         btn2.setDisable(false);
 
-      } catch (IOException e) {
-        System.out.println(e.getMessage());
+      } catch (IOException ex) {
+        System.out.println(ex.getMessage());
       }
-      
+
       //enable caption button for captioning
       if (file != null) {
         btn2.setDisable(false);
       }
-      
+
     });
   }
 }
