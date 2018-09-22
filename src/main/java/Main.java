@@ -17,7 +17,6 @@ import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -51,7 +50,8 @@ public class Main extends Application {
     ImageView myImageView = new ImageView();
     Button btn1 = new Button("Browse");
     Button btn2 = new Button("Caption");
-    
+    btn2.setDisable(true);
+
     //Controls
     hb.setSpacing(20);
     hb.setAlignment(Pos.TOP_LEFT);
@@ -76,11 +76,11 @@ public class Main extends Application {
       FileChooser fc = new FileChooser();
       
       //File Format Filters
-//      FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-//      FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-//      FileChooser.ExtensionFilter extFilterBMP = new FileChooser.ExtensionFilter("BMP files (*.bmp)", "*.BMP");
-//      FileChooser.ExtensionFilter extFilterALL = new FileChooser.ExtensionFilter("All Image Files (JPG,PNG,BMP)", "*.JPG", "*.BMP", "*.PNG");
-//      fc.getExtensionFilters().addAll(extFilterJPG, extFilterBMP, extFilterALL);
+      //FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+      //FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+      //FileChooser.ExtensionFilter extFilterBMP = new FileChooser.ExtensionFilter("BMP files (*.bmp)", "*.BMP");
+      //FileChooser.ExtensionFilter extFilterALL = new FileChooser.ExtensionFilter("All Image Files (JPG,PNG,BMP)", "*.JPG", "*.BMP", "*.PNG");
+      //fc.getExtensionFilters().addAll(extFilterJPG, extFilterBMP, extFilterALL);
 
       fc.setTitle("Open File");
       File file = fc.showOpenDialog(primaryStage);
@@ -89,9 +89,11 @@ public class Main extends Application {
         Image image = new Image(String.valueOf(file.toURI().toURL()));
         myImageView.setImage(image);
         myImageView.setPreserveRatio(true);
-        myImageView.setFitHeight(200);
-        myImageView.setFitWidth(200);
+        myImageView.setFitHeight(300);
+        myImageView.setFitWidth(300);
         myImageView.setSmooth(true);
+        btn2.setDisable(false);
+
       } catch (IOException e) {
         System.out.println(e.getMessage());
       }
