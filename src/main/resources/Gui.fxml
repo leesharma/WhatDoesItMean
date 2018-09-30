@@ -20,7 +20,7 @@
    <bottom>
       <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-alignment: Center; -fx-spacing: 20;" BorderPane.alignment="CENTER">
          <Button fx:id="btnBrowse" text="Browse" onAction="#handleBtnBrowse"/>
-         <Button fx:id="BtnCaption" disable="true" text="Caption" onAction="#handleBtnCaption"/>
+         <Button fx:id="btnCaption" disable="true" text="Caption" onAction="#handleBtnCaption"/>
       </HBox>
    </bottom>
 </BorderPane>

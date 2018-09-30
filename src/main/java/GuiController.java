@@ -18,7 +18,7 @@ public class GuiController {
   public Button btnBrowse;
   
   @FXML
-  public Button BtnCaption;
+  public Button btnCaption;
   
   @FXML
   public Label caption;
@@ -31,12 +31,11 @@ public class GuiController {
   
   
   /**
-   *
    * Handles the Browse button action.
    */
   public void handleBtnBrowse() {
     FileChooser fc = new FileChooser();
-    Stage stage = (Stage) caption.getScene().getWindow();
+    Stage stage = (Stage) btnBrowse.getScene().getWindow();
   
     fc.setTitle("Open File");
     File file = fc.showOpenDialog(stage);
@@ -55,12 +54,11 @@ public class GuiController {
   
     //enable caption button for captioning
     if (file != null) {
-      BtnCaption.setDisable(false);
+      btnCaption.setDisable(false);
     }
   }
   
   /**
-   *
    * Handles the Caption button action.
    */
   public void handleBtnCaption() {
