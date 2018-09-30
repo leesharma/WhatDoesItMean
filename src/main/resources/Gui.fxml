@@ -1,0 +1,26 @@
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="500.0" prefWidth="500" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GuiController">
+   <center>
+      <VBox style="-fx-alignment: Center; -fx-spacing: 20;">
+         <ImageView fx:id="imageView">
+            <image>
+               <Image fx:id="image" url="@photo-camera.png" />
+            </image>
+         </ImageView>
+         <Label fx:id="caption" text="Browse for an image, click caption, and enjoy :)" />
+      </VBox>
+   </center>
+   <bottom>
+      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-alignment: Center; -fx-spacing: 20;" BorderPane.alignment="CENTER">
+         <Button fx:id="btnBrowse" text="Browse" onAction="#handleBtnBrowse"/>
+         <Button fx:id="BtnCaption" disable="true" text="Caption" onAction="#handleBtnCaption"/>
+      </HBox>
+   </bottom>
+</BorderPane>
