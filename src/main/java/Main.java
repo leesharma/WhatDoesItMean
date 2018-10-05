@@ -37,7 +37,7 @@ public class Main extends Application {
   @Override
   public void start(Stage stage) throws Exception {
 
-    Parent root = FXMLLoader.load(getClass().getResource("GUI.fxml"));
+    Parent root = FXMLLoader.load(getClass().getResource("Gui.fxml"));
     Scene scene = new Scene(root, 500, 500);
     stage.setTitle("What Does It Mean?");
     stage.setScene(scene);
