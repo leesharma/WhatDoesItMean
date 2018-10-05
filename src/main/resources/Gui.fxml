@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -14,9 +10,9 @@
 
 <BorderPane prefHeight="500.0" prefWidth="500" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GuiController">
    <center>
-      <VBox onDragDropped="#imageDropped" onDragOver="#imageDragOver" style="-fx-alignment: Center; -fx-spacing: 20; -fx-background-color: #FFFFFF;">
+      <VBox style="-fx-alignment: Center; -fx-spacing: 20; -fx-background-color: #FFFFFF;">
          <children>
-            <ImageView fx:id="imageView" onDragDropped="#imageDropped" onDragOver="#imageDragOver">
+            <ImageView fx:id="imageView">
                <image>
                   <Image fx:id="image" url="@photo-camera.png" />
                </image>
