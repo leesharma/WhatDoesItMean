@@ -11,6 +11,14 @@ import javafx.stage.Stage;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.List;
+
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
+
 
 public class GuiController {
   
@@ -28,8 +36,37 @@ public class GuiController {
   
   @FXML
   public Image image;
-  
-  
+
+  @FXML
+  public Label DragAndDrop;
+
+  public void imageDragOver (DragEvent de){
+    Dragboard board = de.getDragboard();
+    if (board.hasFiles()) {
+      de.acceptTransferModes(TransferMode.ANY);
+    }
+  }
+
+    @FXML
+    public void imageDropped (DragEvent de){
+    try {
+      Dragboard board = de.getDragboard();
+      List<File> phil = board.getFiles();
+      FileInputStream fis;
+      fis = new FileInputStream(phil.get(0));
+      Image image = new Image(fis);
+      imageView.setImage(image);
+      imageView.setPreserveRatio(true);
+      imageView.setFitHeight(300);
+      imageView.setFitWidth(300);
+      imageView.setSmooth(true);
+      btnCaption.setDisable(false);
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+
+    }
+  }
+
   /**
    * Handles the Browse button action.
    */
