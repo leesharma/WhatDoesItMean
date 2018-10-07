@@ -1,23 +1,21 @@
-
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
-
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
 
 
 public class GuiController {
@@ -36,19 +34,25 @@ public class GuiController {
   
   @FXML
   public Image image;
-
-  @FXML
-  public Label DragAndDrop;
-
-  public void imageDragOver (DragEvent de){
+  
+  /**
+   * Handles drag events on the VBox.
+   *
+   * @param de drag event
+   */
+  public void imageDragOver(DragEvent de) {
     Dragboard board = de.getDragboard();
     if (board.hasFiles()) {
       de.acceptTransferModes(TransferMode.ANY);
     }
   }
-
-    @FXML
-    public void imageDropped (DragEvent de){
+  
+  /**
+   * Handles the presentation of image file dropped onto the dragboard.
+   *
+   * @param de drag event
+   */
+  public void imageDropped(DragEvent de) {
     try {
       Dragboard board = de.getDragboard();
       List<File> phil = board.getFiles();
@@ -61,9 +65,8 @@ public class GuiController {
       imageView.setFitWidth(300);
       imageView.setSmooth(true);
       btnCaption.setDisable(false);
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-
+    } catch (FileNotFoundException ex) {
+      ex.printStackTrace();
     }
   }
 
