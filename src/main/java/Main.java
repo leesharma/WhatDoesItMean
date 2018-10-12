@@ -30,6 +30,8 @@ import java.io.IOException;
  */
 public class Main extends Application {
 
+  private String imgFilename;
+
   /**
    * Launches the application.
    *
@@ -85,11 +87,16 @@ public class Main extends Application {
     //Caption Button User Event
     btn2.setOnAction(event -> {
       //Instantiate CaptionGenerator
-      CaptionGenerator cg = new CaptionGenerator();
+      CaptionGenerator cg = null;
+      cg = new CaptionGenerator();
       //Convert JavaFX Image to BufferedImage
       BufferedImage img = SwingFXUtils.fromFXImage(myImageView.getImage(), null);
       //Run captioning method and set label text
-      lb1.setText(cg.generateCaption(img));
+      try {
+        lb1.setText(cg.generateCaption(imgFilename));
+      } catch (IOException ex) {
+        ex.printStackTrace();  // TODO: error popup
+      }
     });
 
     //Browse Button User Event
@@ -100,6 +107,7 @@ public class Main extends Application {
       File file = fc.showOpenDialog(primaryStage);
 
       try {
+        imgFilename = file.toString();
         Image image = new Image(String.valueOf(file.toURI().toURL()));
         myImageView.setImage(image);
         myImageView.setPreserveRatio(true);
