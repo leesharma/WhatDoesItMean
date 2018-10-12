@@ -8,6 +8,13 @@ echo "If you want to use a python virtual environment, stop this script and"
 echo "activate it now."
 echo ""
 
+echo "=========================="
+echo "Downloading model files..."
+echo "=========================="
+curl -L https://www.dropbox.com/s/vz7ydmtpnyb8cs1/full_model.zip?dl=0 > \
+  src/main/resources/full_model.zip
+unzip src/main/resources/full_model.zip -d src/main/resources/
+
 echo "============================="
 echo "Installing bazel and maven..."
 echo "============================="
