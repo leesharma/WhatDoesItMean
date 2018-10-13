@@ -152,6 +152,26 @@
       <version>1.0.0</version>
       <scope>test</scope>
     </dependency>
+    <!-- TestFX -->
+    <dependency>
+      <groupId>org.testfx</groupId>
+      <artifactId>testfx-core</artifactId>
+      <version>4.0.14-alpha</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testfx</groupId>
+      <artifactId>testfx-junit</artifactId>
+      <version>4.0.14-alpha</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- TestFX Travis CI -->
+    <dependency>
+      <groupId>org.testfx</groupId>
+      <artifactId>openjfx-monocle</artifactId>
+      <version>${java.version}.0_20</version> <!-- 1.8.0_20 for Java 8 -->
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
 
