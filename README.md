@@ -2,7 +2,7 @@
 
 A native caption generation application using the Show and Tell model.
 
-![A screenshot of the MVP app in action! It shows a giraffe with the caption "This is definitely an image of something".](doc/mvp_screenshot.png)
+![A screenshot of the MVP app in action! It shows a giraffe with the caption "This is definitely an image of something".](doc/v2.0.0_screenshot.png)
 
 ## Quick Start
 
