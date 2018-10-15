@@ -6,7 +6,7 @@
 
   <groupId>com.cmsc495.groupfantastic</groupId>
   <artifactId>what-does-it-mean</artifactId>
-  <version>1.0.0</version>
+  <version>3.0.0</version>
   <packaging>jar</packaging>
 
 
@@ -103,6 +103,11 @@
     <dependency>
       <groupId>org.tensorflow</groupId>
       <artifactId>tensorflow</artifactId>
+      <version>1.10.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.tensorflow</groupId>
+      <artifactId>proto</artifactId>
       <version>1.10.0</version>
     </dependency>
 

@@ -10,45 +10,18 @@
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.InputStreamReader;
 
 /**
  * Generates a caption from a stored image.
  */
 class CaptionGenerator {
-  private String[] captions;
 
   /**
    * Constructs a new CaptionGenerator with canned captions.
    */
   CaptionGenerator() {
-    String captionsPath = "./src/main/resources/canned_captions.txt";
-    this.captions = readLines(captionsPath);
-  }
-
-  /**
-   * Reads a file and returns the lines, one line per array entry.
-   *
-   * @param filename input file path
-   * @return lines in file
-   */
-  private String[] readLines(String filename) {
-    List<String> lines = new ArrayList<>();
-    String line;
-
-    // open the file and read in lines
-    try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
-      while ((line = br.readLine()) != null) {
-        lines.add(line);
-      }
-    } catch (IOException err) {
-      err.printStackTrace();
-    }
-
-    return lines.toArray(new String[0]);
   }
 
   /**
@@ -56,38 +29,47 @@ class CaptionGenerator {
    *
    * @return image caption
    */
-  String generateCaption(BufferedImage image) {
-    if (image == null) {
-      throw new IllegalArgumentException("Input must be a valid image.");
-    }
+  String generateCaption(String filename) throws IOException {
+    //    if (image == null) {
+    //      throw new IllegalArgumentException("Input must be a valid image.");
+    //    }
 
-    // choose a caption (pre-Tensorflow)
-    int digest = hash(image);
-    int idx = Math.abs(digest % captions.length);
+    String checkpointPath = "src/main/resources/full_model/ckpt5";
+    String vocabFile = "src/main/resources/word_counts.txt";
+    String imageFile = filename
+        .replace("\\", "\\\\")
+        .replace(" ", "\\ ");
 
-    return captions[idx];
-  }
+    String str;
+    String cmd = String.format("src/main/python/bazel-bin/im2txt/run_inference \\\n"
+            + "  --checkpoint_path=%s \\\n"
+            + "  --vocab_file=%s \\\n"
+            + "  --input_files=%s",
+        checkpointPath, vocabFile, imageFile);
+    StringBuilder caption = new StringBuilder();
+    System.out.println("Captioning image with the following command:");
+    System.out.println(cmd);
 
-  /**
-   * Naive hash to identify the image content.
-   *
-   * <p>This is done by simply summing up the pixel values in the image. This
-   * is definitely not a secure method, but it will return the same value if two
-   * images are identical and (likely) return different values for different
-   * images.
-   *
-   * <p>All this code will be deleted once we have Tensorflow integration.
-   *
-   * @param image image input
-   * @return integer digest
-   */
-  private int hash(BufferedImage image) {
-    int sum = 0;
-    for (int i = 0; i < image.getWidth(); i++) {
-      for (int j = 0; j < image.getHeight(); j++) {
-        sum += image.getRGB(i,j);
+    try {
+      Process proc = Runtime.getRuntime().exec(cmd);
+
+      // read the output from the command
+      BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+      System.out.println("Here is the standard output of the command:\n");
+      while ((str = stdInput.readLine()) != null) {
+        caption.append(str);
+        System.out.println(str);
       }
+
+      BufferedReader stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
+      System.out.println("Here is the error output of the command:\n");
+      while ((str = stdError.readLine()) != null) {
+        System.out.println(str);
+      }
+
+    } catch (IOException ex) {
+      ex.printStackTrace();
     }
-    return Math.abs(sum);
+    return caption.toString();
   }
 }

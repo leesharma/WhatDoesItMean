@@ -19,6 +19,7 @@ import java.util.List;
 
 
 public class GuiController {
+  private String imageFilename = "";
   
   @FXML
   public Button btnBrowse;
@@ -82,6 +83,7 @@ public class GuiController {
   
     try {
       Image image = new Image(String.valueOf(file.toURI().toURL()));
+      imageFilename = file.getPath();
       imageView.setImage(image);
       imageView.setPreserveRatio(true);
       imageView.setFitHeight(300);
@@ -101,12 +103,12 @@ public class GuiController {
   /**
    * Handles the Caption button action.
    */
-  public void handleBtnCaption() {
+  public void handleBtnCaption() throws IOException {
     //Instantiate CaptionGenerator
     CaptionGenerator cg = new CaptionGenerator();
     //Convert JavaFX Image to BufferedImage
     BufferedImage img = SwingFXUtils.fromFXImage(imageView.getImage(), null);
     //Run captioning method and set label text
-    caption.setText(cg.generateCaption(img));
+    caption.setText(cg.generateCaption(imageFilename));
   }
 }
